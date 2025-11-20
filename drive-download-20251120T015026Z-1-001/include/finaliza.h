@@ -4,8 +4,6 @@
 #include "estruturas.h"
 
 // Função principal de finalização da compra
-// Recebe o carrinho, base de dados, catálogo e ID da filial escolhida
-// Retorna 1 se a venda foi finalizada, 0 se foi cancelada
 int finaliza(Carrinho *car, DBLojas *db, Catalogo *cat, int id_filial);
 
 // Ajusta o carrinho automaticamente com base no estoque da filial
