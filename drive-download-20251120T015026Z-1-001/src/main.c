@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<stdlib.h>
+#include <stdio.h>
+#include <stdlib.h>
 #include "../include/func.h"
 
 int main()
@@ -14,42 +14,56 @@ int main()
     while(opt >= 0)
     {
         printf("\nBem-vindo ao sistema de estoque! A seguir as opções:\n");
-        printf("\n[1] Carregar dados\n[2] Pesquisa\n[3] Carrinho\n[4] Verificar disponibilidade\n[5]Finalizar compra\n[6] Relatórios\n");
+        printf("\n[1] Carregar dados\n[2] Pesquisa\n[3] Carrinho\n[4] Verificar disponibilidade\n[5] Finalizar compra\n[6] Relatórios\n");
         printf("\nDigite aqui: ");
         scanf("%d", &opt);
 
         switch(opt)
         {
             case 1:
-                {
-                    carrega();
-                } break;
+            {
+                carrega(catalogo, db);
+            } break;
             case 2:
-                {
-                    pesquisa();
-                } break;
+            {
+                pesquisa(catalogo);
+            } break;
             case 3:
-                {
-                    carrinho();
-                } break;
+            {
+                carrinho(car, catalogo);
+            } break;
             case 4:
-                {
-                    verifica_dis();
-                } break;
+            {
+                verifica_dis(car, db, catalogo);
+            } break;
             case 5:
-                {
-                    finaliza();
-                } break;
+            {
+                // Parte que você implementa: finalização da compra
+                int id_filial;
+                printf("\nDigite o ID da filial para finalizar a compra: ");
+                scanf("%d", &id_filial);
+
+                if (!finaliza(car, db, catalogo, id_filial)) {
+                    printf("\nVenda cancelada: nenhum item disponível para retirada nesta filial.\n");
+                } else {
+                    printf("\nCompra finalizada com sucesso!\n");
+                }
+            } break;
             case 6:
-                {
-                    relatorio();
-                } break;
+            {
+                relatorio(db);
+            } break;
             default:
-                {
-                    printf("\nComando não encontrado, tente novamente.\n");
-                } break;
+            {
+                printf("\nComando não encontrado, tente novamente.\n");
+            } break;
         }
     }
+
+    // Liberação de memória
+    liberar_catalogo(catalogo);
+    liberar_db(db);
+    liberar_carrinho(car);
 
     return 0;
 }
